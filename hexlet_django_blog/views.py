@@ -9,3 +9,6 @@ def index(request):
             "who": "World",
         },
     )
+
+def abort(request):
+    return render(request, "about.html")
