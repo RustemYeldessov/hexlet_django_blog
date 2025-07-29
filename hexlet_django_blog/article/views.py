@@ -1,8 +1,18 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
-from django.http import HttpResponse
+from django.urls import reverse
 
-# Create your views here.
+
 class ArticleIndexView(View):
-    def get(self, request, *args, **kwargs):
-        return render(request, 'article/index.html')
+    def get(self, request, tags, article_id):
+        context = {
+            'tags': tags,
+            'article_id': article_id,
+        }
+        return render(request, 'articles/index.html', context)
+
+
+class HomeRedirectView(View):
+    def get(self, request):
+        url = reverse('article', kwargs={'tags': 'python', 'article_id': 42})
+        return redirect(url)
